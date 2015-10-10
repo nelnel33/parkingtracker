@@ -1,48 +1,41 @@
 package localhackday.nelsontsui.parkingtracker;
 
-import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
-    Button set_getParkedLocation;
-    TextView statusBox;
+public class StatusActivity extends AppCompatActivity {
+    TextView distanceBox;
+    SurfaceView arrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_status);
         createButtons();
-        setListeners();
-
     }
 
     private void createButtons(){
-        set_getParkedLocation = (Button)findViewById(R.id.get_setParkedLocation);
-        statusBox = (TextView)findViewById(R.id.statusBox);
-    }
-
-    private void setListeners(){
-        set_getParkedLocation.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent((Context)MainActivity.this, StatusActivity.class);
-                startActivity(intent);
-            }
-        });
+        arrow = (SurfaceView)findViewById(R.id.arrowBox);
+        distanceBox = (TextView)findViewById(R.id.distanceBox);
+        Bitmap arrowPicture = BitmapFactory.decodeResource(getResources(), R.drawable.arrow);
+        Canvas c = new Canvas();
+        c.drawBitmap(arrowPicture, arrow.getLeft(), arrow.getTop(), null);
+        arrow.draw(c);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_status, menu);
         return true;
     }
 
