@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver((receiver),
                 new IntentFilter("ParkingTrackerStatusChanged")
         );
+       new StatusListener(this);
     }
 
     public void onStop() {

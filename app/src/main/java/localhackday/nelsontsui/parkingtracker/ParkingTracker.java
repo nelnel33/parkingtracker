@@ -11,6 +11,12 @@ public class ParkingTracker extends Application {
     private boolean isParked;
     private Location parkingLocation;
 
+    public ParkingTracker() {
+        parkingLocation = new Location("");
+        parkingLocation.setLatitude(40.91222222222222);
+        parkingLocation.setLongitude(-37.12222222222222);
+    }
+
     public boolean isParked() {
         return isParked;
     }
