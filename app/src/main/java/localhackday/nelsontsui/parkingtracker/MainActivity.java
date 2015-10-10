@@ -10,11 +10,13 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     Button set_getParkedLocation;
     TextView statusBox;
+    ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private void createButtons(){
         set_getParkedLocation = (Button)findViewById(R.id.get_setParkedLocation);
         statusBox = (TextView)findViewById(R.id.statusBox);
+
+        logo = (ImageView)findViewById(R.id.logoBox);
+        logo.setImageResource(R.mipmap.logo);
     }
 
     private void setListeners(){
