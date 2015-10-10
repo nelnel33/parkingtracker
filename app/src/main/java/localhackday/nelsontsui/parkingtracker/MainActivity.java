@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     BroadcastReceiver receiver;
 
     static String parkedString = "Parked";
-    static String drivingString = "Moving";
+    static String drivingString = "Not Parked";
     static String buttonParkedString = "Find Car";
     static String buttonDrivingString = "Park Here";
 
