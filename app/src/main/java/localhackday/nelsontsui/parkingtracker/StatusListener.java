@@ -103,6 +103,10 @@ public class StatusListener {
                 // Parking location <- parking location PARK_PERIODS ago
                 Location parkingLocation = locations.get(locations.size() - PARK_PERIODS - 1);
                 appContext.setParkingLocation(parkingLocation);
+
+                // Reset locations/velocities arrays
+                locations.clear();
+                velocities.clear();
             }
         }
     }

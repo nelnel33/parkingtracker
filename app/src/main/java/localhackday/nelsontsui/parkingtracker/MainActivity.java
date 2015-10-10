@@ -12,19 +12,55 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.BroadcastReceiver;
+import android.support.v4.content.LocalBroadcastManager;
+import android.content.IntentFilter;
 
 public class MainActivity extends AppCompatActivity {
     Button set_getParkedLocation;
     TextView statusBox;
     ImageView logo;
+    BroadcastReceiver receiver;
+
+    static String parkedString = "Parked";
+    static String drivingString = "Not Parked";
+    static String buttonParkedString = "Find Car";
+    static String buttonDrivingString = "Park Here";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         createButtons();
         setListeners();
 
+        // Create broadcast receiver
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String status = intent.getStringExtra("Status");
+                if (status == "true") {
+                    ((MainActivity) context).statusBox.setText(parkedString.toCharArray(), 0, parkedString.length());
+                    ((MainActivity) context).set_getParkedLocation.setText(buttonParkedString.toCharArray(), 0, buttonParkedString.length());
+                } else {
+                    ((MainActivity) context).statusBox.setText(drivingString.toCharArray(), 0, drivingString.length());
+                    ((MainActivity) context).set_getParkedLocation.setText(buttonDrivingString.toCharArray(), 0, buttonDrivingString.length());
+                }
+            }
+        };
+    }
+
+    public void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver((receiver),
+                new IntentFilter("ParkingTrackerStatusChanged")
+        );
+    }
+
+    public void onStop() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onStop();
     }
 
     private void createButtons(){
