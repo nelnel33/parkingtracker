@@ -3,6 +3,8 @@ package localhackday.nelsontsui.parkingtracker;
 import android.app.Application;
 import android.location.Location;
 import android.location.LocationListener;
+import android.support.v4.content.LocalBroadcastManager;
+import android.content.Intent;
 
 /**
  * Created by Nelnel33 on 10/10/15.
@@ -22,7 +24,16 @@ public class ParkingTracker extends Application {
     }
 
     public void setIsParked(boolean isParked) {
-        this.isParked = isParked;
+        if(this.isParked != isParked){
+            LocalBroadcastManager broadcast = LocalBroadcastManager.getInstance(this);
+            Intent intent = new Intent("ParkingTrackerStatusChanged");
+            intent.putExtra("Status", isParked);
+            broadcast.sendBroadcast(intent);
+            this.isParked = isParked; // its fine
+        }
+
+
+
     }
 
     public Location getParkingLocation() {
